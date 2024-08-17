@@ -4,10 +4,10 @@
       <div class="content">
         <div class="left">
           <div class="name">
-            至轻云
+            {{ $t("zhi_qing_yun") }}
           </div>
           <div class="slogan">
-            企业级大数据计算平台
+            {{ $t("enterprise_data_platform") }}
           </div>
           <div class="command">
             <p id="command-shell">docker run -p 8080:8080 isxcode/zhiqingyun</p>
@@ -19,186 +19,299 @@
           </div>
           <div class="btn-div">
             <div class="guide-btn" @click="handleGuideClick">
-              <p>快速入门</p>
+              <p>{{ $t("quick_start") }}</p>
             </div>
             <div class="quick-btn" @click="handleQuickClick">
-              <p>立即体验</p>
+              <p>{{ $t("experience_now") }}</p>
               <SvgIcon name="arrow-right" class="link-right-svg"></SvgIcon>
             </div>
             <div class="movie-btn" @click="toggleVideo">
-              <p>视频介绍</p>
+              <p>{{ $t("video_introduction") }}</p>
             </div>
           </div>
         </div>
         <div class="right">
-          <div v-show="!isMobile||showVideo" class="artplayer-app"></div>
+          <div v-show="!isMobile || showVideo" class="artplayer-app"></div>
         </div>
       </div>
     </div>
     <div class="module-about">
       <div class="content">
         <div class="why-title">
-          选择至轻云
+          {{ $t("choose_light_cloud") }}
         </div>
         <div class="why-content">
-          至轻云是一款超轻量级、企业级大数据平台。具有一键部署，开箱即用特色。无需额外大数据组件安装，即可快速实现企业级大数据离线ETL、实时计算、作业定时调度等场景。项目持续更新迭代，源码永久开源免费。助力企业快速处理海量数据，获得更多商业价值。
+          {{ $t("light_cloud_description") }}
         </div>
         <div class="why-content-mobile">
-          至轻云是一款超轻量级、企业级大数据平台。具有一键部署，开箱即用特色。无需额外大数据组件安装，即可快速实现企业级大数据离线ETL、实时计算、作业定时调度等场景。
+          {{ $t("light_cloud_description_mobile") }}
         </div>
         <div class="tech-title">
-          相关技术
+          {{ $t("related_technologies") }}
         </div>
         <div class="tech-img-div">
-          <img class="tech-img" @click="handleK8sClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-k8s.png" alt="">
-          <img class="tech-img" @click="handleHadoopClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-hadoop.png" alt="">
-          <img class="tech-img" @click="handleSparkClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-spark.png" alt="">
-          <img class="tech-img" @click="handleHiveClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-hive.png" alt="">
-          <img class="tech-img" @click="handleDorisClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-doris.png" alt="">
-          <img class="tech-img" @click="handleClickhouseClick" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-clickhouse.png" alt="">
+          <img
+            class="tech-img"
+            @click="handleK8sClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-k8s.png"
+            alt=""
+          />
+          <img
+            class="tech-img"
+            @click="handleHadoopClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-hadoop.png"
+            alt=""
+          />
+          <img
+            class="tech-img"
+            @click="handleSparkClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-spark.png"
+            alt=""
+          />
+          <img
+            class="tech-img"
+            @click="handleHiveClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-hive.png"
+            alt=""
+          />
+          <img
+            class="tech-img"
+            @click="handleDorisClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-doris.png"
+            alt=""
+          />
+          <img
+            class="tech-img"
+            @click="handleClickhouseClick"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/tech-img/t-clickhouse.png"
+            alt=""
+          />
         </div>
       </div>
     </div>
     <div class="module-feat-left">
       <div class="content">
         <div class="left">
-          <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-1.jpg" alt="">
+          <img
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-1.jpg"
+            alt=""
+          />
         </div>
         <div class="right">
-          <div class="line-1">多平台部署，从不娇生惯养</div>
-          <div class="line-2">支持各种资源调度平台，如Kubernetes、Spark Standalone、Spark Cluster、Yarn、CDH等。可无缝切换，敏捷迁移，帮助企业更优分配集群资源。</div>
-          <div class="line-3" @click="handleQuickClick">立即体验</div>
+          <div class="line-1">{{ $t("multi_platform_deployment") }}</div>
+          <div class="line-2">{{ $t("multi_platform_description") }}</div>
+          <div class="line-3" @click="handleQuickClick">
+            {{ $t("experience_now") }}
+          </div>
         </div>
       </div>
     </div>
     <div class="module-feat-right">
       <div class="content">
         <div class="right-phone">
-          <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-2.jpg" alt="">
+          <img
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-2.jpg"
+            alt=""
+          />
         </div>
         <div class="left">
-          <div class="line-1">驱动上传，任何姿势都能连</div>
-          <div class="line-2">支持海量数据源，如Mysql、Hive、Oracle、SqlServer、TiDB、Oceanbase、Doris、Clickhouse等。支持自定义驱动上传，解决企业中多版本数据源无法同时连接的难题。</div>
-          <div class="line-3" @click="handleQuickClick">立即体验</div>
+          <div class="line-1">{{ $t("driver_upload") }}</div>
+          <div class="line-2">{{ $t("data_sources_support") }}</div>
+          <div class="line-3" @click="handleQuickClick">
+            {{ $t("experience_now") }}
+          </div>
         </div>
         <div class="right">
-          <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-2.jpg" alt="">
+          <img
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-2.jpg"
+            alt=""
+          />
         </div>
       </div>
     </div>
     <div class="module-feat-left">
       <div class="content">
         <div class="left">
-          <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-3.jpg" alt="">
+          <img
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-3.jpg"
+            alt=""
+          />
         </div>
         <div class="right">
-          <div class="line-1">创建租户，再大也能装下</div>
-          <div class="line-2">支持多租户模式，确保租户数据隔离。租户内可单独协调集群资源、数据源驱动、作业流配置等。解决企业中部门规模较大、用户众多、权限难解的问题。</div>
-          <div class="line-3" @click="handleQuickClick">立即体验</div>
+          <div class="line-1">{{ $t("tenant_creation") }}</div>
+          <div class="line-2">{{ $t("tenant_support") }}</div>
+          <div class="line-3" @click="handleQuickClick">
+            {{ $t("experience_now") }}
+          </div>
         </div>
       </div>
     </div>
     <div class="module-business">
       <div class="content">
-        <div class="line-1">数据创造价值，大数据创造大价值</div>
-        <div class="line-2">AI已至，至轻云与您携手实现企业级大数据平台落地</div>
+        <div class="line-1">{{ $t("data_drives_value") }}</div>
+        <div class="line-2">{{ $t("data_drives_value_description") }}</div>
         <div class="business-img">
-          <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-1.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-2.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-3.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-4.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-5.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-6.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-7.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-8.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-9.png" alt="">
-          <img class="bus-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-10.png" alt="">
+          <img
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-1.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-2.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-3.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-4.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-5.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-6.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-7.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-8.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-9.png"
+            alt=""
+          />
+          <img
+            class="bus-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/business-img/b-10.png"
+            alt=""
+          />
         </div>
       </div>
     </div>
     <div class="module-feat-right">
       <div class="content">
         <div class="right-phone">
-          <img class="feat-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-4.jpg" alt="">
+          <img
+            class="feat-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-4.jpg"
+            alt=""
+          />
         </div>
         <div class="left">
-          <div class="line-1">编排作业，横竖都能拖拽</div>
-          <div class="line-2">支持全量的作业生命周期指令，包括运行、中止、重跑、重跑下游、中断、重跑当前、发布等。且具备可视化定时调度设置，适配企业中各种复杂应用场景。</div>
-          <div class="line-3" @click="handleQuickClick">立即体验</div>
+          <div class="line-1">{{ $t("job_orchestration") }}</div>
+          <div class="line-2">{{ $t("job_support") }}</div>
+          <div class="line-3" @click="handleQuickClick">
+            {{ $t("experience_now") }}
+          </div>
         </div>
         <div class="right">
-          <img class="feat-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-4.jpg" alt="">
+          <img
+            class="feat-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-4.jpg"
+            alt=""
+          />
         </div>
       </div>
     </div>
     <div class="module-feat-left">
       <div class="content">
         <div class="left">
-          <img class="feat-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-5.jpg" alt="">
+          <img
+            class="feat-img"
+            src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/p-5.jpg"
+            alt=""
+          />
         </div>
         <div class="right">
-          <div class="line-1">能写代码？不单单只有SparkSql</div>
-          <div class="line-2">支持超多作业类型，包括数据同步、Bash脚本、Python、SparkSql、自定义SparkJar、Prql等。免费提供用户开发模版，任何复杂的场景都可以通过写代码的方式解决。</div>
-          <div class="line-3" @click="handleQuickClick">立即体验</div>
+          <div class="line-1">{{ $t("coding_capability") }}</div>
+          <div class="line-2">{{ $t("job_types_supported") }}</div>
+          <div class="line-3" @click="handleQuickClick">
+            {{ $t("experience_now") }}
+          </div>
         </div>
       </div>
     </div>
     <div class="module-end">
       <div class="content">
-        <div class="line-1">开源助力企业升级大数据能力</div>
-        <div class="end-btn" @click="handleQuickClick">免费试用</div>
+        <div class="line-1">{{ $t("data_drives_value") }}</div>
+        <div class="end-btn" @click="handleQuickClick">
+          {{ $t("free_trial") }}
+        </div>
       </div>
     </div>
   </div>
-  <LayoutHomeFooter/>
+  <LayoutHomeFooter />
 </template>
 
 <script lang="ts" setup>
-import {ElMessage} from 'element-plus'
+import { ElMessage } from "element-plus";
 import Artplayer from "artplayer";
-import {defineProps} from "vue";
+import { defineProps } from "vue";
+import { useI18n } from "vue-i18n";
+import { NConfigProvider } from "naive-ui";
+
+const $t = useI18n().t;
 
 definePageMeta({
-  title: "首页",
+  title: $t("home"),
   layout: "home",
 });
 
 useSeoMeta({
-  title: "至轻云",
-  ogTitle: "至爻数据",
-  description: "企业级大数据计算平台",
-  ogDescription: "打造企业级开源软件全家桶",
+  title: $t("zhi_qing_yun"),
+  ogTitle: $t("zhi_yao_shu_ju"),
+  description: $t("enterprise_data_platform"),
+  ogDescription: $t("build_enterprise_open_source_software"),
 });
 
-const isMobile = useMediaQuery('(max-width: 767px)')
+const isMobile = useMediaQuery("(max-width: 767px)");
 
 const props = defineProps({
   showVideo: {
     type: Boolean,
     default: false,
   },
-})
+});
 
-const showVideo = ref(props.showVideo)
+const showVideo = ref(props.showVideo);
 
 const toggleVideo = () => {
-  showVideo.value = !showVideo.value
-}
+  showVideo.value = !showVideo.value;
+};
 
 onMounted(() => {
   const art = new Artplayer({
-    container: '.artplayer-app',
-    url: 'https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/product.mp4',
+    container: ".artplayer-app",
+    url: "https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/product-img/product.mp4",
     fullscreen: true,
     fullscreenWeb: true,
     pip: true,
     autoplay: false,
-    theme: '#e25a1b',
+    theme: "#e25a1b",
     muted: true,
-    autoSize: true
+    autoSize: true,
   });
   window.addEventListener("scroll", handleScroll);
-})
+  definePageMeta({
+    title: "home_title",
+    layout: "home",
+  });
+});
 
 function handleScroll() {
   if (window.scrollY > 100) {
@@ -252,35 +365,41 @@ const copyContent = async (text: string) => {
     await navigator.clipboard.writeText(text);
     ElMessage({
       duration: 800,
-      message: '复制成功',
-      type: 'success',
+      message: $t("copy_success"),
+      type: "success",
     });
   } catch (err) {
     console.error("Failed to copy: ", err);
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
+// /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+// @font-face {
+//   font-family: "阿里妈妈数黑体 Bold";
+//   font-weight: 700;
+//   src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/H8l4dOabqZB6.woff2")
+//       format("woff2"),
+//     url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/asWfYxsbrfvz.woff")
+//       format("woff");
+//   font-display: swap;
+// }
 
-/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
-@font-face {
-  font-family: "阿里妈妈数黑体 Bold";
-  font-weight: 700;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/H8l4dOabqZB6.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/asWfYxsbrfvz.woff") format("woff");
-  font-display: swap;
-}
-
-/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
-@font-face {
-  font-family: "阿里巴巴普惠体 2.0 45 Light";
-  font-weight: 300;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff") format("woff");
-  font-display: swap;
-}
+// /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+// @font-face {
+//   font-family: "阿里巴巴普惠体 2.0 45 Light";
+//   font-weight: 300;
+//   src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2")
+//       format("woff2"),
+//     url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff")
+//       format("woff");
+//   font-display: swap;
+//   src: url("//at.alicdn.com/wf/webfont/aQ1mhUp3iaYf/ioBpXsZZyM2a.woff2")
+//       format("woff2"),
+//     url("//at.alicdn.com/wf/webfont/aQ1mhUp3iaYf/PKa87aIHO5BU.woff")
+//       format("woff");
+// }
 
 $font-size: 14px;
 // 介绍的高度
@@ -304,18 +423,14 @@ $primary-width: 1200px;
 // 产品介绍图片大小
 $module-intro-img-width: 600px;
 
-
 .main {
-
-  font-family: "阿里巴巴普惠体 2.0 45 Light", sans-serif;
-
   .module-intro {
     width: 100%;
     height: $module-intro-height;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-0.jpg');
+    background-image: url("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-0.jpg");
     padding-top: 200px;
     position: relative;
     overflow: hidden;
@@ -335,7 +450,7 @@ $module-intro-img-width: 600px;
       display: flex;
 
       .left {
-        width: 600px;;
+        width: 600px;
 
         .name {
           margin-top: 120px;
@@ -458,7 +573,6 @@ $module-intro-img-width: 600px;
       }
 
       .tech-img-div {
-
         .tech-img {
           cursor: pointer;
         }
@@ -482,7 +596,7 @@ $module-intro-img-width: 600px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-2.jpg');
+    background-image: url("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-2.jpg");
     display: flex;
     align-items: center;
     justify-content: center;
@@ -531,7 +645,7 @@ $module-intro-img-width: 600px;
     display: flex;
 
     .left {
-      width: 600px;;
+      width: 600px;
 
       img {
         width: 450px;
@@ -542,7 +656,7 @@ $module-intro-img-width: 600px;
     .right {
       margin-left: 100px;
       margin-top: 50px;
-      width: 600px;;
+      width: 600px;
 
       .line-1 {
         font-family: "阿里妈妈数黑体 Bold", sans-serif;
@@ -565,7 +679,6 @@ $module-intro-img-width: 600px;
       }
     }
   }
-
 }
 
 .module-feat-right {
@@ -594,7 +707,7 @@ $module-intro-img-width: 600px;
     }
 
     .left {
-      width: 600px;;
+      width: 600px;
       margin-top: 50px;
 
       .line-1 {
@@ -625,7 +738,7 @@ $module-intro-img-width: 600px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-1.jpg');
+  background-image: url("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-1.jpg");
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,9 +776,7 @@ $module-intro-img-width: 600px;
 // ------------------------------------------------------- 移动端 ----------------------------------------------------------------------
 
 @media (max-width: 768px) {
-
   .main {
-
     .module-intro {
       width: 100%;
       height: 850px;
@@ -796,7 +907,7 @@ $module-intro-img-width: 600px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-image: url('https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-2.jpg');
+      background-image: url("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-2.jpg");
       align-items: center;
 
       .content {
@@ -875,11 +986,9 @@ $module-intro-img-width: 600px;
         }
       }
     }
-
   }
 
   .module-feat-right {
-
     width: 100%;
     height: 480px;
     display: flex;
@@ -934,7 +1043,7 @@ $module-intro-img-width: 600px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-1.jpg');
+    background-image: url("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/bg-1.jpg");
     display: flex;
     align-items: center;
     justify-content: center;
@@ -959,6 +1068,5 @@ $module-intro-img-width: 600px;
     margin: auto;
     width: 300px;
   }
-
 }
 </style>

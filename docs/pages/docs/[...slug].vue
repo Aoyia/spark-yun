@@ -1,15 +1,7 @@
 <template>
   <main class="docs">
     <nav class="left-side">
-      <el-scrollbar
-        class="scroll-bar"
-        always
-        height="100%"
-        :scroll-bar="{
-          background: 'red',
-        }"
-        ref="scrollbarRef"
-      >
+      <NScrollbar class="scroll-bar" height="100%" :size="4" ref="scrollbarRef">
         <ContentNavigation class="nav" v-slot="{ navigation }">
           <DocsMenuNode
             class="nav-tree"
@@ -17,7 +9,7 @@
             @item-click="handleMenuItemClick"
           ></DocsMenuNode>
         </ContentNavigation>
-      </el-scrollbar>
+      </NScrollbar>
     </nav>
     <article class="doc-content">
       <div class="content">
@@ -32,41 +24,30 @@
           </template>
         </ContentRenderer>
       </div>
-      <!--      <div class="aside">-->
-      <!--        <div class="aside-wrapper">-->
-      <!--          <div class="aside-content">-->
-      <!--            <DocsToc-->
-      <!--              :contentDirTree="toc"-->
-      <!--              :activeNodeIdList="['1', '2']"-->
-      <!--              @nodeClicked="handleTocItemClick"-->
-      <!--            />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </article>
   </main>
 </template>
 
 <script setup lang="ts">
-import {NavItem} from "@nuxt/content";
+import { NavItem } from "@nuxt/content";
 import getContentDirTree from "~/util/getContentDirTree";
-import {useCounterStore, useMenuStore} from "~/store/index";
+import { useCounterStore, useMenuStore } from "~/store/index";
+import { NScrollbar } from "naive-ui";
 
 definePageMeta({
   title: "首页",
   layout: "home",
 });
-const {params} = useRoute();
-const {data, pending, error, refresh} = await useAsyncData("docs", () =>
+const { params } = useRoute();
+const { data, pending, error, refresh } = await useAsyncData("docs", () =>
   queryContent("/" + params.slug.join("/")).findOne()
 );
 
 const markdownBodyRef = ref<HTMLElement | null>(null);
 const toc = ref<NavItem[]>([]);
 onMounted(() => {
-  const {height} = useCounterStore();
-  scrollbarRef.value.$el.querySelector(".el-scrollbar__wrap").scrollTop =
-    height;
+  const { height } = useCounterStore();
+  scrollbarRef.value.$el.nextElementSibling.firstChild.scrollTop = height;
   const htmlStr = markdownBodyRef.value?.$el.innerHTML || "";
   toc.value = getContentDirTree(htmlStr);
 });
@@ -93,7 +74,7 @@ function processMenuData(data: Array<NavItem>) {
   }
 
   deep(data);
-  const {menuList, setMenuList} = useMenuStore();
+  const { menuList, setMenuList } = useMenuStore();
   const flag = isEqual(data, menuList);
   if (flag) {
     return menuList;
@@ -121,12 +102,12 @@ function processMenuData(data: Array<NavItem>) {
 
 const scrollbarRef = ref<HTMLElement | null>(null);
 const scrollBarScrollTop = ref(0);
-const {height, setHeightState} = useCounterStore();
+const { height, setHeightState } = useCounterStore();
 
 function handleMenuItemClick(link: NavItem) {
-  scrollBarScrollTop.value = scrollbarRef.value?.$el.querySelector(
-    ".el-scrollbar__wrap"
-  )!.scrollTop;
+  debugger;
+  scrollBarScrollTop.value =
+    scrollbarRef.value?.$el.nextElementSibling.firstChild.scrollTop;
   setHeightState(scrollBarScrollTop.value);
   const router = useRouter();
   router.push(link._path);

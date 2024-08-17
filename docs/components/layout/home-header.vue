@@ -1,13 +1,14 @@
 <template>
-  <div ref="headerFilterRef" class="backdrop-blur">
-
-  </div>
+  <div ref="headerFilterRef" class="backdrop-blur"></div>
   <header ref="headerRef" class="home-header">
     <div class="content">
       <div class="right">
         <div @click="handleLogoClick" class="home-header-logo">
           <div class="logo">
-            <img src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/logo.jpg" alt=""/>
+            <img
+              src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/logo.jpg"
+              alt=""
+            />
             <h1>至爻数据</h1>
           </div>
         </div>
@@ -23,6 +24,7 @@
             <SvgIcon v-if="item.icon" :name="item.icon" class="icon-btn">
             </SvgIcon>
           </div>
+          <LangSwitcher />
         </div>
       </div>
     </div>
@@ -145,13 +147,14 @@ function handleMenuClick(menuItem: MenuData) {
 </script>
 
 <style lang="scss" scoped>
-
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: "阿里妈妈数黑体 Bold";
   font-weight: 700;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/H8l4dOabqZB6.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/asWfYxsbrfvz.woff") format("woff");
+  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/H8l4dOabqZB6.woff2")
+      format("woff2"),
+    url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/asWfYxsbrfvz.woff")
+      format("woff");
   font-display: swap;
 }
 
@@ -159,8 +162,10 @@ function handleMenuClick(menuItem: MenuData) {
 @font-face {
   font-family: "阿里巴巴普惠体 2.0 45 Light";
   font-weight: 300;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff") format("woff");
+  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2")
+      format("woff2"),
+    url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff")
+      format("woff");
   font-display: swap;
 }
 
@@ -300,13 +305,11 @@ function handleMenuClick(menuItem: MenuData) {
       }
     }
   }
-
 }
 
 // -------------------------------------------------------------------- 移动端 ----------------------------------------------
 
 @media (max-width: 768px) {
-
   .home-header {
     width: 100%;
     position: fixed;
