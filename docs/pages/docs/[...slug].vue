@@ -39,41 +39,61 @@ definePageMeta({
   layout: "home",
 });
 const { params } = useRoute();
+const { locale } = useI18n();
 const { data, pending, error, refresh } = await useAsyncData("docs", () =>
-  queryContent("/" + params.slug.join("/")).findOne()
+  queryContent(`/` + params.slug.join("/")).findOne()
 );
 
-const markdownBodyRef = ref<HTMLElement | null>(null);
 const toc = ref<NavItem[]>([]);
+const markdownBodyRef = ref<HTMLElement | null>(null);
+
 onMounted(() => {
+  init();
+});
+
+const router = useRouter();
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    const firstPath = router.currentRoute.value.path.split("/")[1];
+    const threePath = router.currentRoute.value.path.split("/")[3];
+    if (firstPath === locale.value && threePath !== firstPath) {
+      const newPath = router.currentRoute.value.path.replace(
+        `/${threePath}/`,
+        `/${locale.value}/`
+      );
+      router.push(newPath);
+    }
+  }
+);
+
+function init() {
   const { height } = useCounterStore();
   scrollbarRef.value.$el.nextElementSibling.firstChild.scrollTop = height;
   const htmlStr = markdownBodyRef.value?.$el.innerHTML || "";
   toc.value = getContentDirTree(htmlStr);
-});
+}
+
+function updatePathDeep(navItems: Array<NavItem>, parentPath = "") {
+  navItems.forEach((item) => {
+    if (item.children) {
+      updatePathDeep(item.children, parentPath);
+    }
+    if (item._path.startsWith(parentPath)) {
+      return;
+    }
+    item._path = parentPath + item._path;
+  });
+}
 
 function processMenuData(data: Array<NavItem>) {
-  data = data.map((item) => {
-    if (item.children) {
-      return item.children;
-    }
-    return item;
+  const currentLang = locale.value;
+  const targetData = data.find((item) => {
+    return item._path.slice(1) === currentLang;
   });
-  data = data.flat();
-
-  function deep(data: Array<NavItem>) {
-    data.forEach((item) => {
-      if (item._path.startsWith("/docs")) {
-        return;
-      }
-      item._path = "/docs" + item._path;
-      if (item.children) {
-        deep(item.children);
-      }
-    });
-  }
-
-  deep(data);
+  data = targetData.children.flat();
+  debugger;
+  updatePathDeep(data, "/" + locale.value + "/docs");
   const { menuList, setMenuList } = useMenuStore();
   const flag = isEqual(data, menuList);
   if (flag) {
@@ -102,10 +122,9 @@ function processMenuData(data: Array<NavItem>) {
 
 const scrollbarRef = ref<HTMLElement | null>(null);
 const scrollBarScrollTop = ref(0);
-const { height, setHeightState } = useCounterStore();
+const { setHeightState } = useCounterStore();
 
 function handleMenuItemClick(link: NavItem) {
-  debugger;
   scrollBarScrollTop.value =
     scrollbarRef.value?.$el.nextElementSibling.firstChild.scrollTop;
   setHeightState(scrollBarScrollTop.value);
@@ -123,7 +142,6 @@ const resetNodeActiveStatus = (node) => {
 };
 
 function handleTocItemClick(node: DirNode) {
-  // 设置活跃节点
   toc.value.forEach((item) => {
     resetNodeActiveStatus(item);
   });
@@ -133,7 +151,6 @@ function handleTocItemClick(node: DirNode) {
   const HList = markdownBody.querySelectorAll(`h${node.hLevel}`);
   const H = Array.from(HList).find((item) => item.innerText === node.title);
   scrollTo(H);
-  // 修改路由，添加锚点
   const router = useRouter();
   router.push({
     path: router.currentRoute.value.path,
@@ -156,12 +173,10 @@ function scrollTo(element, headerOffset = 80) {
 </script>
 
 <style scoped lang="scss">
-// 整个文档
 .docs {
   width: 1200px;
   padding-top: 80px;
   margin: auto;
-  // 侧边栏,不和文档一起
   .left-side {
     margin-top: 80px;
     background: white;
@@ -185,7 +200,6 @@ function scrollTo(element, headerOffset = 80) {
     }
   }
 
-  // 文档部分
   .doc-content {
     margin-left: 350px;
     box-sizing: border-box;
@@ -212,7 +226,6 @@ function scrollTo(element, headerOffset = 80) {
       flex: 1;
 
       .markdown-body {
-        // 文档内容
         width: 810px;
         margin-top: 70px;
         height: calc(100% - 80px);

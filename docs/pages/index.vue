@@ -280,6 +280,7 @@ useSeoMeta({
 });
 
 const isMobile = useMediaQuery("(max-width: 767px)");
+const { locale } = useI18n();
 
 const props = defineProps({
   showVideo: {
@@ -321,7 +322,8 @@ function handleScroll() {
 
 function handleGuideClick() {
   const router = useRouter();
-  router.push("/docs/zh/0/0");
+  const langPrefix = locale.value;
+  router.push(`/${langPrefix}/docs/zh/0/0`);
 }
 
 function handleQuickClick() {

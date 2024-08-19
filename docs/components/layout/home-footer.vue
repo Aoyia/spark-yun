@@ -1,53 +1,63 @@
 <template>
-
   <div class="footer">
-
     <div class="content">
       <div class="left">
-        <img class="logo-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/logo.jpg" alt=""/>
-        <div class="logo-name">
-          至爻数据
-        </div>
-        <img class="wechat-img" src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiyao/qrcode_for_12.jpg" alt=""/>
-        <div class="wechat-name">
-          微信公众号
-        </div>
+        <img
+          class="logo-img"
+          src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/logo.jpg"
+          alt=""
+        />
+        <div class="logo-name">{{ $t("company_name") }}</div>
+        <img
+          class="wechat-img"
+          src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiyao/qrcode_for_12.jpg"
+          alt=""
+        />
+        <div class="wechat-name">{{ $t("wechat_official_account") }}</div>
       </div>
       <div class="right">
         <div class="column">
-          <div class="title">产品</div>
-          <div class="link" @click="clickZhiqingyun">至轻云</div>
-          <div class="link" @click="clickZhiliuyun">至流云</div>
-          <div class="link" @click="clickZhishuyun">至数云</div>
-          <div class="link" @click="clickZhishiyun">至视云</div>
-          <div class="link" @click="clickZhihuiyun">至慧云</div>
+          <div class="title">{{ $t("product") }}</div>
+          <div class="link" @click="clickZhiqingyun">
+            {{ $t("zhiqingyun") }}
+          </div>
+          <div class="link" @click="clickZhiliuyun">{{ $t("zhiliuyun") }}</div>
+          <div class="link" @click="clickZhishuyun">{{ $t("zhishuyun") }}</div>
+          <div class="link" @click="clickZhishiyun">{{ $t("zhishiyun") }}</div>
+          <div class="link" @click="clickZhihuiyun">{{ $t("zhihuiyun") }}</div>
         </div>
         <div class="column">
-          <div class="title">社区</div>
-          <div class="link" @click="clickGithub">Github</div>
-          <div class="link" @click="clickGitee">Gitee</div>
-          <div class="link" @click="clickSlack">Slack</div>
-          <div class="link" @click="clickDiscord">Discord</div>
+          <div class="title">{{ $t("community") }}</div>
+          <div class="link" @click="clickGithub">{{ $t("github") }}</div>
+          <div class="link" @click="clickGitee">{{ $t("gitee") }}</div>
+          <div class="link" @click="clickSlack">{{ $t("slack") }}</div>
+          <div class="link" @click="clickDiscord">{{ $t("discord") }}</div>
         </div>
         <div class="column">
-          <div class="title">资源</div>
-          <div class="link" @click="clickBlogs">解决方案</div>
-          <div class="link" @click="clickDocs">产品手册</div>
-          <div class="link" @click="clickDockerHub">Docker Hub</div>
-          <div class="link" @click="downloadPackage">安装包下载</div>
-          <div class="link" @click="downloadLicense">许可证下载</div>
+          <div class="title">{{ $t("resources") }}</div>
+          <div class="link" @click="clickBlogs">{{ $t("solutions") }}</div>
+          <div class="link" @click="clickDocs">{{ $t("docs") }}</div>
+          <div class="link" @click="clickDockerHub">{{ $t("docker_hub") }}</div>
+          <div class="link" @click="downloadPackage">
+            {{ $t("download_package") }}
+          </div>
+          <div class="link" @click="downloadLicense">
+            {{ $t("download_license") }}
+          </div>
         </div>
         <div class="column">
-          <div class="title">关于我们</div>
-          <div class="link" @click="clickOther">至爻简介</div>
-          <div class="link" @click="joinUs">加入我们</div>
-          <div class="link" @click="clickGithubProject">开发进度</div>
+          <div class="title">{{ $t("about_us") }}</div>
+          <div class="link" @click="clickOther">{{ $t("company_intro") }}</div>
+          <div class="link" @click="joinUs">{{ $t("join_us") }}</div>
+          <div class="link" @click="clickGithubProject">
+            {{ $t("development_progress") }}
+          </div>
         </div>
         <div class="column">
-          <div class="title">联系我们</div>
-          <div class="link">电话: 400-8848-170</div>
-          <div class="link">邮箱: hello@isxcode.com</div>
-          <div class="link">地址: 上海市徐汇区中山西路2020号501室</div>
+          <div class="title">{{ $t("contact_us") }}</div>
+          <div class="link">{{ $t("phone") }}</div>
+          <div class="link">{{ $t("email") }}</div>
+          <div class="link">{{ $t("address") }}</div>
         </div>
       </div>
     </div>
@@ -55,19 +65,19 @@
 
   <div class="org-info">
     <div class="content">
-      <div class="link">公司: 上海至爻数据有限公司</div>
-      <div class="link">电话: 400-8848-170</div>
-      <div class="link">邮箱: hello@isxcode.com</div>
-      <div class="link">地址: 上海市徐汇区中山西路2020号501室</div>
+      <div class="link">{{ $t("company_name") }}</div>
+      <div class="link">{{ $t("phone") }}</div>
+      <div class="link">{{ $t("email") }}</div>
+      <div class="link">{{ $t("address") }}</div>
     </div>
   </div>
 
   <div class="footer-copyright">
     <div class="content">
       <div class="equal-columns">
-        <div>Copyright © 2023-2024 至爻数据</div>
-        <div class="icp-click" @click="clickIcp">沪ICP备2023031895号-1</div>
-        <div class="copyright-div">版权所有 上海至爻数据有限公司</div>
+        <div>{{ $t("copyright") }}</div>
+        <div class="icp-click" @click="clickIcp">{{ $t("icp") }}</div>
+        <div class="copyright-div">{{ $t("reserved_rights") }}</div>
       </div>
     </div>
   </div>
@@ -75,28 +85,22 @@
   <div class="fixed-footer" @click="callPhoneNumber">
     <div class="content">
       <SvgIcon class="phone-svg" name="phone"></SvgIcon>
-      <p class="phone-text"><a>电话咨询</a></p>
+      <p class="phone-text">
+        <a>{{ $t("phone_inquiry") }}</a>
+      </p>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
-/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
-@font-face {
-  font-family: "阿里妈妈数黑体 Bold";
-  font-weight: 700;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/H8l4dOabqZB6.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/asWfYxsbrfvz.woff") format("woff");
-  font-display: swap;
-}
-
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
   font-family: "阿里巴巴普惠体 2.0 45 Light";
   font-weight: 300;
-  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff") format("woff");
+  src: url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/u90TTYWjH7Ut.woff2")
+      format("woff2"),
+    url("//at.alicdn.com/wf/webfont/UMV2yX61q8rB/njK1PTw1pmIt.woff")
+      format("woff");
   font-display: swap;
 }
 
@@ -164,7 +168,6 @@
       }
     }
   }
-
 }
 
 .footer-copyright {
@@ -203,7 +206,6 @@
 }
 
 @media (max-width: 768px) {
-
   .fixed-footer {
     display: block;
     position: fixed;
@@ -295,7 +297,6 @@
         }
       }
     }
-
   }
 
   .org-info {
@@ -336,14 +337,16 @@
     }
   }
 }
-
 </style>
 <script setup lang="ts">
-import {ElMessage} from 'element-plus'
+import { ElMessage } from "element-plus";
+const switchLocalePath = useSwitchLocalePath();
+const { locale } = useI18n();
 
 function clickZhiqingyun() {
   const router = useRouter();
-  router.push("/");
+  const newLocale = locale.value === "en" ? "zh" : "en";
+  router.push({ path: switchLocalePath(newLocale) });
 }
 
 function clickZhiliuyun() {
@@ -362,16 +365,16 @@ function clickZhishuyun() {
   window.open("https://zhishuyun.isxcode.com");
 }
 
-function joinUs(){
+function joinUs() {
   const router = useRouter();
   router.push("/docs/zh/5/0");
 }
 
 function clickOther() {
   ElMessage({
-    message: '敬请期待',
-    type: 'success',
-  })
+    message: "敬请期待",
+    type: "success",
+  });
 }
 
 function clickGithubProject() {
@@ -387,7 +390,9 @@ function clickGithub() {
 }
 
 function clickSlack() {
-  window.open("https://join.slack.com/t/isxcode/shared_invite/zt-2k9pnkm68-6hJo9e0Mp1yax2mNYv8caA");
+  window.open(
+    "https://join.slack.com/t/isxcode/shared_invite/zt-2k9pnkm68-6hJo9e0Mp1yax2mNYv8caA"
+  );
 }
 
 function clickDiscord() {
@@ -403,11 +408,15 @@ function clickDockerHub() {
 }
 
 function downloadLicense() {
-  window.open("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/license.lic");
+  window.open(
+    "https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/license.lic"
+  );
 }
 
 function downloadPackage() {
-  window.open("https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/zhiqingyun.tar.gz");
+  window.open(
+    "https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/zhiqingyun.tar.gz"
+  );
 }
 
 function clickBlogs() {
@@ -426,5 +435,4 @@ function clickIcp() {
 function callPhoneNumber() {
   window.location.href = `tel:4008848170`;
 }
-
 </script>

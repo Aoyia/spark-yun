@@ -19,8 +19,6 @@ function changeLangs() {
   router.push({ path: switchLocalePath(newLocale) });
 }
 
-// 计算属性计算显式的文字
-// [ { "name": "中文", "code": "zh", "iso": "zh-CN", "dir": "ltr" }, { "name": "English", "code": "en", "iso": "en-US", "dir": "ltr" } ]
 const currentLocale = computed(() => {
   return supportedLocales.find((l) => l.code === locale.value);
 });
