@@ -16,7 +16,6 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: ["defineStore"],
   },
-  // 引入plugins
   plugins: [{ src: "~/plugins/svgicon.client.ts" }],
   css: [
     "element-plus/dist/index.css",

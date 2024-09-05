@@ -5,12 +5,12 @@
       class="menu-folder"
       @click.stop="handleFolderClick(link)"
     >
-      <div class="menu-folder-title">
+      <div class="menu-folder-title" :class="computeClass(link)">
         <span class="menu-folder-title-icon">
           <SvgIcon name="home"></SvgIcon>
         </span>
         <SkEllipsis class="menu-folder-title-text" truncated>
-          {{ link.title}}
+          {{ link.title }}
         </SkEllipsis>
         <div class="menu-folder-title-is-collapsed">
           <SvgIcon
@@ -34,6 +34,7 @@
       class="menu-item"
       :class="{
         'menu-item-active': link._path === router.currentRoute.value.path,
+        ...computeClass(link),
       }"
       @click.stop="handleMenuItemClick(link)"
     >
@@ -86,6 +87,19 @@ watch(
     }
   }
 );
+
+function computeClass(link: MenuItem) {
+  const path = link._path;
+  // 剪切出 /docs/后面的内容，使用匹配的方式
+  const reg = /\/docs\/(.*)/;
+  const match = path.match(reg);
+  // 计算截切出来的内容的层级
+  const level = match ? match[1].split("/").length - 1 : 0;
+  // 根据层级计算缩进
+  return {
+    [`menu-item-level-${level}`]: true,
+  };
+}
 </script>
 
 <style lang="scss" scoped>
@@ -111,7 +125,7 @@ watch(
       }
     }
     .menu-folder-content {
-      padding-left: 20px;
+      // padding-left: 20px;
     }
   }
   .menu-item {
@@ -140,6 +154,21 @@ watch(
   .menu-item-active {
     border-left: var(--sk-color-home-primary) 2px solid;
     color: var(--sk-color-home-primary) !important;
+  }
+  .menu-item-level-1 {
+    padding-left: 0px !important;
+  }
+  .menu-item-level-2 {
+    padding-left: 20px !important;
+  }
+  .menu-item-level-3 {
+    padding-left: 40px !important;
+  }
+  .menu-item-level-4 {
+    padding-left: 60px !important;
+  }
+  .menu-item-level-5 {
+    padding-left: 80px !important;
   }
 }
 </style>

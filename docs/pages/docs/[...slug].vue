@@ -13,7 +13,7 @@
     </nav>
     <article class="doc-content">
       <div class="content">
-        <ContentRenderer :value="data">
+        <ContentRenderer v-if="data" :value="data">
           <ContentRendererMarkdown
             ref="markdownBodyRef"
             class="markdown-body github-markdown-light"
@@ -33,6 +33,7 @@ import { NavItem } from "@nuxt/content";
 import getContentDirTree from "~/util/getContentDirTree";
 import { useCounterStore, useMenuStore } from "~/store/index";
 import { NScrollbar } from "naive-ui";
+import useViewer from "~/composables/useViewer.ts";
 
 definePageMeta({
   title: "首页",
@@ -45,10 +46,13 @@ const { data, pending, error, refresh } = await useAsyncData("docs", () =>
 );
 
 const toc = ref<NavItem[]>([]);
-const markdownBodyRef = ref<HTMLElement | null>(null);
+const markdownBodyRef = ref<null>(null);
 
 onMounted(() => {
   init();
+});
+useViewer(markdownBodyRef, {
+  toolbar: false,
 });
 
 const router = useRouter();
@@ -69,7 +73,13 @@ watch(
 
 function init() {
   const { height } = useCounterStore();
-  scrollbarRef.value.$el.nextElementSibling.firstChild.scrollTop = height;
+  if (scrollbarRef.value?.$el?.nextElementSibling) {
+    const scrollElement = scrollbarRef.value.$el.nextElementSibling
+      .firstChild as HTMLElement;
+    if (scrollElement) {
+      scrollElement.scrollTop = height;
+    }
+  }
   const htmlStr = markdownBodyRef.value?.$el.innerHTML || "";
   toc.value = getContentDirTree(htmlStr);
 }
@@ -79,10 +89,9 @@ function updatePathDeep(navItems: Array<NavItem>, parentPath = "") {
     if (item.children) {
       updatePathDeep(item.children, parentPath);
     }
-    if (item._path.startsWith(parentPath)) {
-      return;
+    if (!item._path.startsWith(parentPath)) {
+      item._path = parentPath + item._path;
     }
-    item._path = parentPath + item._path;
   });
 }
 
@@ -92,7 +101,6 @@ function processMenuData(data: Array<NavItem>) {
     return item._path.slice(1) === currentLang;
   });
   data = targetData.children.flat();
-  debugger;
   updatePathDeep(data, "/" + locale.value + "/docs");
   const { menuList, setMenuList } = useMenuStore();
   const flag = isEqual(data, menuList);
@@ -116,7 +124,21 @@ function processMenuData(data: Array<NavItem>) {
   }
 
   data = filterIndex(data);
+  // 遍历数据，将数据加上层级和isCollapsed
+  function addLevel(data: Array<NavItem>, level = 0) {
+    data.forEach((item) => {
+      item.level = level;
+      item.isCollapsed = true;
+      if (item.children) {
+        addLevel(item.children, level + 1);
+      }
+    });
+  }
+  addLevel(data);
+  //使用lodash 合并data和menuList
+  _Merge(data, menuList);
   setMenuList(data);
+
   return menuList;
 }
 

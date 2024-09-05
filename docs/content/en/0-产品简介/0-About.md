@@ -14,7 +14,7 @@ title: 'About Zhiqingyun'
 
 > One-click Docker deployment, no need for additional big data components, quickly gain big data computing capabilities.
 
-#### ▪ Native Spark Integration
+#### ▪ Native Spark Integration 
 
 > Fully integrates Spark into the project, naturally incorporating Spark features for better performance.
 
