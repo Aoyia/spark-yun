@@ -16,7 +16,7 @@
         <ContentRenderer :value="data">
           <ContentRendererMarkdown
             ref="markdownBodyRef"
-            class="markdown-body"
+            class="markdown-content markdown-body"
             :value="data"
           />
           <template #empty>
@@ -295,7 +295,7 @@ function scrollTo(element, headerOffset = 80) {
     .content {
       flex: 1;
 
-      .markdown-body {
+      .markdown-content {
         width: 810px;
         margin-top: 70px;
         height: calc(100% - 80px);
