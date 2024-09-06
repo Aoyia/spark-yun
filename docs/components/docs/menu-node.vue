@@ -57,6 +57,7 @@ interface MenuItem {
   _id?: string;
   _draft?: boolean;
   isCollapsed?: boolean;
+  level?: number;
   children?: MenuItem[];
   [key: string]: any;
 }
@@ -78,26 +79,9 @@ function handleMenuItemClick(link: MenuItem) {
 
 const router = useRouter();
 
-watch(
-  () => router.currentRoute.value.path,
-  (path) => {
-    const link = treeData.find((item) => item._path === path);
-    if (link) {
-      link.isCollapsed = false;
-    }
-  }
-);
-
 function computeClass(link: MenuItem) {
-  const path = link._path;
-  // 剪切出 /docs/后面的内容，使用匹配的方式
-  const reg = /\/docs\/(.*)/;
-  const match = path.match(reg);
-  // 计算截切出来的内容的层级
-  const level = match ? match[1].split("/").length - 1 : 0;
-  // 根据层级计算缩进
   return {
-    [`menu-item-level-${level}`]: true,
+    [`menu-item-level-${link.level}`]: true,
   };
 }
 </script>

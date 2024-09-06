@@ -13,10 +13,10 @@
     </nav>
     <article class="doc-content">
       <div class="content">
-        <ContentRenderer v-if="data" :value="data">
+        <ContentRenderer :value="data">
           <ContentRendererMarkdown
             ref="markdownBodyRef"
-            class="markdown-body github-markdown-light"
+            class="markdown-body"
             :value="data"
           />
           <template #empty>
@@ -29,16 +29,31 @@
 </template>
 
 <script setup lang="ts">
-import { NavItem } from "@nuxt/content";
 import getContentDirTree from "~/util/getContentDirTree";
 import { useCounterStore, useMenuStore } from "~/store/index";
 import { NScrollbar } from "naive-ui";
-import useViewer from "~/composables/useViewer.ts";
+import useViewer from "~/composables/useViewer";
+
+interface NavItem {
+  title: string;
+  _path: string;
+  _id?: string;
+  _draft?: boolean;
+  isCollapsed?: boolean;
+  level?: number;
+  children?: NavItem[];
+  [key: string]: any;
+}
 
 definePageMeta({
-  title: "首页",
   layout: "home",
 });
+
+const currentDoc = ref<NavItem | null>(null);
+useHead({
+  title: "至轻云" + currentDoc.value?.title,
+});
+
 const { params } = useRoute();
 const { locale } = useI18n();
 const { data, pending, error, refresh } = await useAsyncData("docs", () =>
@@ -59,13 +74,10 @@ const router = useRouter();
 watch(
   () => router.currentRoute.value.path,
   () => {
-    const firstPath = router.currentRoute.value.path.split("/")[1];
-    const threePath = router.currentRoute.value.path.split("/")[3];
+    const [firstPath, , threePath, ...restPaths] =
+      router.currentRoute.value.path.split("/");
     if (firstPath === locale.value && threePath !== firstPath) {
-      const newPath = router.currentRoute.value.path.replace(
-        `/${threePath}/`,
-        `/${locale.value}/`
-      );
+      const newPath = `/${locale.value}/${restPaths.join("/")}`;
       router.push(newPath);
     }
   }
@@ -95,51 +107,87 @@ function updatePathDeep(navItems: Array<NavItem>, parentPath = "") {
   });
 }
 
-function processMenuData(data: Array<NavItem>) {
-  const currentLang = locale.value;
-  const targetData = data.find((item) => {
-    return item._path.slice(1) === currentLang;
-  });
-  data = targetData.children.flat();
-  updatePathDeep(data, "/" + locale.value + "/docs");
+function processMenuData(menuData: Array<NavItem>) {
   const { menuList, setMenuList } = useMenuStore();
-  const flag = isEqual(data, menuList);
-  if (flag) {
+  const currentPath = router.currentRoute.value.path;
+  if (menuList.length > 0) {
+    expandPath(menuList, currentPath);
     return menuList;
   }
 
-  // 过滤掉和父亲节点名字一致的儿子节点
-  function filterIndex(data: Array<NavItem>) {
-    data = data.filter((item) => {
-      const itemTitle = item.title;
-      if (item.children) {
-        item.children = item.children.filter((child) => {
-          return child.title !== itemTitle;
-        });
-        item.children = filterIndex(item.children);
-      }
-      return item;
-    });
-    return data;
+  if (!menuData) {
+    return [];
+  }
+  const currentLang = locale.value;
+  const targetData = menuData.find(
+    (item) => item._path.slice(1) === currentLang
+  );
+
+  if (!targetData || !targetData.children) {
+    return [];
   }
 
-  data = filterIndex(data);
-  // 遍历数据，将数据加上层级和isCollapsed
-  function addLevel(data: Array<NavItem>, level = 0) {
-    data.forEach((item) => {
-      item.level = level;
-      item.isCollapsed = true;
-      if (item.children) {
-        addLevel(item.children, level + 1);
-      }
-    });
-  }
-  addLevel(data);
-  //使用lodash 合并data和menuList
-  _Merge(data, menuList);
-  setMenuList(data);
+  menuData = targetData.children.flat();
+  updatePathDeep(menuData, `/${locale.value}/docs`);
 
+  // 合并过滤和添加 level 字段的操作
+  menuData = filterAndAddLevel(menuData);
+
+  expandPath(menuData, currentPath);
+
+  setMenuList(menuData);
   return menuList;
+}
+
+function expandPath(menuData: Array<NavItem>, currentPath: string) {
+  const path = findPathToCurrent(menuData, currentPath);
+  path.forEach((item) => {
+    item.isCollapsed = false;
+  });
+  // 最后一个节点不折叠，且保存在 currentDoc 中
+  if (path.length > 0) {
+    path[path.length - 1].isCollapsed = false;
+    currentDoc.value = path[path.length - 1];
+  }
+}
+
+function filterAndAddLevel(data: Array<NavItem>, level = 1): Array<NavItem> {
+  return data.map((item) => {
+    const itemTitle = item.title;
+    if (item.children) {
+      item.children = item.children.filter(
+        (child: NavItem) => child.title !== itemTitle
+      );
+      item.children = filterAndAddLevel(item.children, level + 1);
+    }
+    return {
+      ...item,
+      level,
+      isCollapsed: item.isCollapsed === undefined ? true : item.isCollapsed,
+    };
+  });
+}
+
+function findPathToCurrent(
+  nodes: NavItem[],
+  targetPath: string,
+  ancestors: NavItem[] = []
+): NavItem[] {
+  for (const node of nodes) {
+    if (node._path === targetPath) {
+      return [...ancestors, node];
+    }
+    if (node.children && node.children.length > 0) {
+      const result = findPathToCurrent(node.children, targetPath, [
+        ...ancestors,
+        node,
+      ]);
+      if (result.length > 0) {
+        return result;
+      }
+    }
+  }
+  return [];
 }
 
 const scrollbarRef = ref<HTMLElement | null>(null);

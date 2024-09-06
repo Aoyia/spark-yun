@@ -8,6 +8,5 @@
 <script lang="ts" setup>
 defineComponent("Home");
 definePageMeta({
-  middleware: "redirect",
 });
 </script>
