@@ -46,7 +46,7 @@ interface NavItem {
 }
 
 definePageMeta({
-  layout: "home",
+  layout: "docs",
 });
 
 const currentDoc = ref<NavItem | null>(null);
@@ -74,10 +74,17 @@ const router = useRouter();
 watch(
   () => router.currentRoute.value.path,
   () => {
-    const [firstPath, , threePath, ...restPaths] =
-      router.currentRoute.value.path.split("/");
-    if (firstPath === locale.value && threePath !== firstPath) {
-      const newPath = `/${locale.value}/${restPaths.join("/")}`;
+    const pathSegments = router.currentRoute.value.path.split("/");
+    const [, firstPath, , thirdPath, ...restPaths] = pathSegments;
+    if (
+      firstPath &&
+      thirdPath &&
+      firstPath === locale.value &&
+      thirdPath !== firstPath
+    ) {
+      const newPath = `/${locale.value}/docs/${locale.value}/${restPaths.join(
+        "/"
+      )}`;
       router.push(newPath);
     }
   }
@@ -110,9 +117,15 @@ function updatePathDeep(navItems: Array<NavItem>, parentPath = "") {
 function processMenuData(menuData: Array<NavItem>) {
   const { menuList, setMenuList } = useMenuStore();
   const currentPath = router.currentRoute.value.path;
+  debugger
   if (menuList.length > 0) {
-    expandPath(menuList, currentPath);
-    return menuList;
+    const flag = menuList.some((item) =>
+      item._path.startsWith(`/${locale.value}/`)
+    );
+    if (flag) {
+      expandPath(menuList, currentPath);
+      return menuList;
+    }
   }
 
   if (!menuData) {
@@ -245,6 +258,7 @@ function scrollTo(element, headerOffset = 80) {
 <style scoped lang="scss">
 .docs {
   width: 1200px;
+  height: 100vh;
   padding-top: 80px;
   margin: auto;
   .left-side {

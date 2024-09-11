@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
-import { defineProps, defineEmits, PropType, watch } from "vue";
+import { defineProps, defineEmits, type PropType, watch } from "vue";
 interface MenuItem {
   title: string;
   _path: string;

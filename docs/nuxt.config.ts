@@ -1,8 +1,14 @@
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+// import { transformerNotationHighlight } from "@shikijs/transformers";
 import path from "path";
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  // build: {
+  //   analyze: {
+  //     filename: "stats.html",
+  //   },
+  // },
   modules: [
     "@nuxt/content",
     "@pinia/nuxt",
@@ -32,7 +38,39 @@ export default defineNuxtConfig({
   lodash: {
     prefix: "_",
   },
-  content: {},
+  content: {
+    highlight: {
+      theme: "dark-plus",
+      langs: [
+        "bash",
+        "java",
+        "json",
+        "markdown",
+        "typescript",
+        "yaml",
+        "yml",
+        "xml",
+        "javascript",
+        "sql",
+        "python",
+        "html",
+        "css",
+        "shell",
+        "vue",
+        "go",
+        "csharp",
+        "cpp",
+        "swift",
+        "dockerfile",
+        "ini",
+        "toml",
+        "powershell",
+        "makefile",
+        "graphql",
+        "log",
+      ],
+    },
+  },
   i18n: {
     locales: [
       { name: "中文", code: "zh", iso: "zh-CN", dir: "ltr" },

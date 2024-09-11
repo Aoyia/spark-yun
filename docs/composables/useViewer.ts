@@ -1,4 +1,5 @@
-import { Ref, onMounted, onBeforeUnmount } from "vue";
+import type { Ref } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
 
@@ -13,18 +14,19 @@ export default function useViewer(
   let viewerInstance: Viewer | null = null;
 
   onMounted(() => {
-    debugger;
     if (containerRef.value) {
       setTimeout(() => {
-        viewerInstance = new Viewer(containerRef.value.$el, {
-          toolbar: true,
-          navbar: true,
-          zoomable: true,
-          movable: true,
-          scalable: true,
-          transition: true,
-          ...options,
-        });
+        if (containerRef.value) {
+          viewerInstance = new Viewer(containerRef.value.$el, {
+            toolbar: true,
+            navbar: true,
+            zoomable: true,
+            movable: true,
+            scalable: true,
+            transition: true,
+            ...options,
+          });
+        }
       }, 1000);
     }
   });

@@ -9,7 +9,7 @@
               src="https://isxcode.oss-cn-shanghai.aliyuncs.com/zhiqingyun/web-img/logo.jpg"
               alt=""
             />
-            <!-- <h1>至爻数据</h1> -->
+            <h1>至爻数据</h1>
           </div>
         </div>
       </div>
@@ -117,11 +117,11 @@ watch(
   }
 );
 
+const { locale, locales } = useI18n();
 function handleLogoClick() {
   const router = useRouter();
-  const { locale, locales } = useI18n();
-  const newLocale = locale.value === "en" ? "zh" : "en";
-  router.push({ path: "/" + newLocale });
+  const newLocale = locale.value;
+  router.push(`/${newLocale}/`);
 }
 
 interface MenuData {

@@ -263,7 +263,6 @@ import { ElMessage } from "element-plus";
 import Artplayer from "artplayer";
 import { defineProps } from "vue";
 import { useI18n } from "vue-i18n";
-import { NConfigProvider } from "naive-ui";
 
 const $t = useI18n().t;
 
@@ -323,7 +322,7 @@ function handleScroll() {
 function handleGuideClick() {
   const router = useRouter();
   const langPrefix = locale.value;
-  router.push(`/${langPrefix}/docs/zh/0/0`);
+  router.push(`/${langPrefix}/docs/${langPrefix}/0/0`);
 }
 
 function handleQuickClick() {
