@@ -2,7 +2,11 @@
   <main class="docs">
     <nav class="left-side">
       <NScrollbar class="scroll-bar" height="100%" :size="4" ref="scrollbarRef">
-        <ContentNavigation class="nav" v-slot="{ navigation }">
+        <ContentNavigation
+          :key="docsMenuKey"
+          class="nav"
+          v-slot="{ navigation }"
+        >
           <DocsMenuNode
             class="nav-tree"
             :treeData="processMenuData(navigation)"
@@ -62,6 +66,7 @@ const { data, pending, error, refresh } = await useAsyncData("docs", () =>
 
 const toc = ref<NavItem[]>([]);
 const markdownBodyRef = ref<null>(null);
+const docsMenuKey = ref(1);
 
 onMounted(() => {
   init();
@@ -87,6 +92,21 @@ watch(
       )}`;
       router.push(newPath);
     }
+  }
+);
+
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    const { from } = router.currentRoute.value.query;
+    if (from === "home") {
+      setTimeout(() => {
+        docsMenuKey.value++;
+      }, 100);
+    }
+  },
+  {
+    immediate: true,
   }
 );
 
@@ -117,7 +137,6 @@ function updatePathDeep(navItems: Array<NavItem>, parentPath = "") {
 function processMenuData(menuData: Array<NavItem>) {
   const { menuList, setMenuList } = useMenuStore();
   const currentPath = router.currentRoute.value.path;
-  debugger
   if (menuList.length > 0) {
     const flag = menuList.some((item) =>
       item._path.startsWith(`/${locale.value}/`)

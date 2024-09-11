@@ -322,7 +322,7 @@ function handleScroll() {
 function handleGuideClick() {
   const router = useRouter();
   const langPrefix = locale.value;
-  router.push(`/${langPrefix}/docs/${langPrefix}/0/0`);
+  router.push(`/${langPrefix}/docs/${langPrefix}/0/0?from=home`);
 }
 
 function handleQuickClick() {
