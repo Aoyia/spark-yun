@@ -24,7 +24,7 @@
             <SvgIcon v-if="item.icon" :name="item.icon" class="icon-btn">
             </SvgIcon>
           </div>
-          <LangSwitcher />
+          <!-- <LangSwitcher /> -->
         </div>
       </div>
     </div>
